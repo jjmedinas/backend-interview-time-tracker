@@ -1,3 +1,5 @@
 .DS_STORE
 Gemfile.lock
-
+.byebug_history
+/.rdoc
+time-tracker.sqlite3
