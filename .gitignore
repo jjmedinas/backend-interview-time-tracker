@@ -2,4 +2,7 @@
 Gemfile.lock
 .byebug_history
 /.rdoc
-time-tracker.sqlite3
+db/time-tracker.dev.sqlite3
+db/time-tracker.test.sqlite3
+.env
+.rspec
