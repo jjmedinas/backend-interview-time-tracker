@@ -3,6 +3,7 @@ require "sinatra/activerecord"
 require "./src/models/project.rb"
 require "./src/models/time_segment.rb"
 require "./src/models/general-report.rb"
+require "./src/models/single-project-report.rb"
 require 'byebug'
 
 set :port, ENV.fetch('HTTP_PORT', 3000).to_i
@@ -46,7 +47,11 @@ end
 
 
 get '/reports/projects/:id' do
-  [200, @project.to_json]
+  single_report = SingleProjectReport.new(@project)
+
+  [200, single_report.content.to_json]
+rescue => e
+  [400, map_error_response(e.message)]
 end
 
 

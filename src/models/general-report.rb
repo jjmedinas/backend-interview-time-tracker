@@ -13,7 +13,7 @@ class GeneralReport
     projects.map do |project|
       {
         name: project.name, 
-        totalTime: project.time_segments.where(current: false).map(&:duration).inject(:+)
+        totalTime: "#{project.total_spent_time}m"
       }
     end
   end
