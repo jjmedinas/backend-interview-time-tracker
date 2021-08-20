@@ -8,10 +8,12 @@ set :port, ENV.fetch('HTTP_PORT', 3000).to_i
 set :bind, '0.0.0.0'
 
 
-before '*/projects/:id/*' do
-  @project = Project.find(params[:id])
-rescue ActiveRecord::RecordNotFound => e
-  halt 404, "Project not found"
+['/reports/projects/:id', '/projects/:id/*'].each do |route|
+  before route do
+    @project = Project.find(params[:id])
+  rescue ActiveRecord::RecordNotFound => e
+    halt 404, "Project not found"
+  end
 end
 
 post '/projects/:id/time-segments/start' do
@@ -25,7 +27,6 @@ end
 
 post '/projects/:id/time-segments/stop' do
   time_segment = @project.time_segment
-  # byebug
   time_segment.stop!
 
   200
@@ -38,6 +39,7 @@ end
 
 
 get '/reports/projects/:id' do
+  [200, @project.to_json]
 end
 
 
