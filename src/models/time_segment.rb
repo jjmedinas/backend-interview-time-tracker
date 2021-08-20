@@ -9,13 +9,13 @@ class TimeSegment < ActiveRecord::Base
   def start!
     update!(started_at: Time.now) and return if valid_to_start?
 
-    raise(StandardError, @errors.full_messages)
+    raise(StandardError, errors.full_messages)
   end
 
   def stop!
-    update(stopped_at: Time.now) and return if valid_to_start?
+    update(stopped_at: Time.now) and return if valid_to_stop?
 
-    raise Exception.new @errors.full_messages
+    raise(StandardError, errors.full_messages)
   end
 
   def valid_to_start?
@@ -35,21 +35,21 @@ class TimeSegment < ActiveRecord::Base
   def has_already_started?
     return false if started_at.nil?
     
-    @errors.add(:base, "The time segment was already started")
+    errors.add(:base, "The time segment was already started")
     true
   end
 
   def has_already_stopped?
     return false if stopped_at.nil?
     
-    @errors.add(:base, message: "The time segment was already stopped")
+    errors.add(:base, message: "The time segment was already stopped")
     true
   end
 
   def has_not_started?
     return false if started_at.present?
     
-    @errors.add(:base, message: "The time segment hasn't started")
+    errors.add(:base, message: "The time segment hasn't started")
     true
   end
 end
