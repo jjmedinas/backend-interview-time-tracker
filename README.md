@@ -21,7 +21,7 @@ Along with the following services:
 
 - Prerequisites
   - rvm
-  - ruby 2.5.6
+  - ruby 2.6.5
 
 - Instalation steps
 ```language
