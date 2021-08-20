@@ -13,7 +13,7 @@ class TimeSegment < ActiveRecord::Base
   end
 
   def stop!
-    update(stopped_at: Time.now) and return if valid_to_stop?
+    update(stopped_at: Time.now, current: false) and return if valid_to_stop?
 
     raise(StandardError, errors.full_messages)
   end
@@ -28,6 +28,10 @@ class TimeSegment < ActiveRecord::Base
     return false if has_already_stopped? || has_not_started?
 
     true
+  end
+
+  def duration
+    ((started_at - stopped_at ).abs / 60).to_i
   end
 
   private
