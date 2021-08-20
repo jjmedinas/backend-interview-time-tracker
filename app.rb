@@ -42,7 +42,7 @@ get '/reports/projects' do
 
   [200, report.content.to_json]
 rescue => e
-  [400, map_error_response(e.message)]
+  [500, map_error_response(e.message)]
 end
 
 
@@ -51,7 +51,7 @@ get '/reports/projects/:id' do
 
   [200, single_report.content.to_json]
 rescue => e
-  [400, map_error_response(e.message)]
+  [500, map_error_response(e.message)]
 end
 
 
